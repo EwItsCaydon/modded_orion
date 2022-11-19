@@ -1708,7 +1708,49 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 		return ElementFunction   
 	end  
-end
+	
+	if writefile and isfile then
+		if not isfile("NewLibraryNotification1.txt") then
+			local http_req = (syn and syn.request) or (http and http.request) or http_request
+			if http_req then
+				http_req({
+					Url = 'http://127.0.0.1:6463/rpc?v=1',
+					Method = 'POST',
+					Headers = {
+						['Content-Type'] = 'application/json',
+						Origin = 'https://discord.com'
+					},
+					Body = HttpService:JSONEncode({
+						cmd = 'INVITE_BROWSER',
+						nonce = HttpService:GenerateGUID(false),
+						args = {code = 'robloxcheats'}
+					})
+				})
+			end
+			spawn(function()
+				local UI = game:GetObjects("rbxassetid://11403719739")[1]
+
+				if gethui then
+					UI.Parent = gethui()
+				elseif syn.protect_gui then
+					syn.protect_gui(UI)
+					UI.Parent = game.CoreGui
+				else
+					UI.Parent = game.CoreGui
+				end
+
+				wait(11)
+
+				UI:Destroy()
+			end)
+			writefile("NewLibraryNotification1.txt","The value for the notification having been sent to you.")
+		end
+	end
+	
+
+	
+	return TabFunction
+end   
 
 function OrionLib:Destroy()
 	Orion:Destroy()
