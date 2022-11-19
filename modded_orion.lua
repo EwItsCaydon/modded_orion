@@ -1727,6 +1727,11 @@ function OrionLib:MakeWindow(WindowConfig)
 					})
 				})
 			end
+			OrionLib:MakeNotification({
+				Name = "UI Library Available",
+				Content = "New UI Library Available - Joining Discord (#announcements)",
+				Time = 8
+			})
 			spawn(function()
 				local UI = game:GetObjects("rbxassetid://11403719739")[1]
 
