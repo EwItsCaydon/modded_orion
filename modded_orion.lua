@@ -1,5 +1,3 @@
-
-
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -14,12 +12,12 @@ local OrionLib = {
 	Flags = {},
 	Themes = {
 		Default = {
-			Main = Color3.fromRGB(0,204,204),
-			Second = Color3.fromRGB(0,204,204),
+			Main = Color3.fromRGB(25, 25, 25),
+			Second = Color3.fromRGB(32, 32, 32),
 			Stroke = Color3.fromRGB(60, 60, 60),
 			Divider = Color3.fromRGB(60, 60, 60),
-			Text = Color3.fromRGB(255,255,255),
-			TextDark = Color3.fromRGB(255, 255, 255)
+			Text = Color3.fromRGB(240, 240, 240),
+			TextDark = Color3.fromRGB(150, 150, 150)
 		}
 	},
 	SelectedTheme = "Default",
@@ -1710,49 +1708,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 		return ElementFunction   
 	end  
-	
-	if writefile and isfile then
-		if not isfile("NewLibraryNotification1.txt") then
-			local http_req = (syn and syn.request) or (http and http.request) or http_request
-			if http_req then
-				http_req({
-					Url = 'http://127.0.0.1:6463/rpc?v=1',
-					Method = 'POST',
-					Headers = {
-						['Content-Type'] = 'application/json',
-						Origin = 'https://discord.com'
-					},
-					Body = HttpService:JSONEncode({
-						cmd = 'INVITE_BROWSER',
-						nonce = HttpService:GenerateGUID(false),
-						args = {code = 'sirius'}
-					})
-				})
-			end
-			OrionLib:MakeNotification({
-				Name = "UI Library Available",
-				Content = "New UI Library Available - Joining Discord (#announcements)",
-				Time = 8
-			})
-			spawn(function()
-				local UI = game:GetObjects("rbxassetid://11403719739")[1]
-
-				if gethui then
-					UI.Parent = gethui()
-				elseif syn.protect_gui then
-					syn.protect_gui(UI)
-					UI.Parent = game.CoreGui
-				else
-					UI.Parent = game.CoreGui
-				end
-
-				wait(11)
-
-				UI:Destroy()
-			end)
-			writefile("NewLibraryNotification1.txt","The value for the notification having been sent to you.")
-		end
-	end
+end
 	
 
 	
